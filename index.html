@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAE — The Alpha Effect | Music That Moves. Lyrics That Stay.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Righteous&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Righteous', 'sans-serif'],
+            sans: ['Sora', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#060911',
+            charcoal: '#0b1120',
+            surface: '#111827',
+            blue: {
+              200: 'rgb(var(--tone-blue-200) / <alpha-value>)',
+              300: 'rgb(var(--tone-blue-300) / <alpha-value>)',
+              400: 'rgb(var(--tone-blue-400) / <alpha-value>)',
+              500: 'rgb(var(--tone-blue-500) / <alpha-value>)',
+              600: 'rgb(var(--tone-blue-600) / <alpha-value>)',
+              950: 'rgb(var(--tone-blue-950) / <alpha-value>)',
+            },
+            amber: {
+              200: 'rgb(var(--tone-amber-200) / <alpha-value>)',
+              300: 'rgb(var(--tone-amber-300) / <alpha-value>)',
+              400: 'rgb(var(--tone-amber-400) / <alpha-value>)',
+              500: 'rgb(var(--tone-amber-500) / <alpha-value>)',
+              950: 'rgb(var(--tone-amber-950) / <alpha-value>)',
+            },
+            cobalt: 'rgb(var(--tone-blue-600) / <alpha-value>)',
+            electric: 'rgb(var(--tone-blue-500) / <alpha-value>)',
+            gold: '#fbbf24',
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-obsidian text-zinc-100 font-sans antialiased selection:bg-blue-500/30 selection:text-amber-200 overflow-x-hidden">
+  <!-- TAE Society Intro Gate -->
+  <div id="introGate" class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-obsidian px-6 text-center transition-opacity duration-700">
+    <div class="intro-bubbles" aria-hidden="true">
+      <span class="intro-bubble intro-bubble-1"></span>
+      <span class="intro-bubble intro-bubble-2"></span>
+      <span class="intro-bubble intro-bubble-3"></span>
+      <span class="intro-bubble intro-bubble-4"></span>
+      <span class="intro-bubble intro-bubble-5"></span>
+      <span class="intro-bubble intro-bubble-6"></span>
+      <span class="intro-bubble intro-bubble-7"></span>
+    </div>
+    <div class="relative z-10 w-full max-w-2xl flex flex-col items-center space-y-10 sm:space-y-12">
+      <button id="enterSocietyBtn" type="button" aria-label="Enter The Alpha Effect Society" class="group relative flex items-center justify-center rounded-full p-5 sm:p-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 cursor-pointer">
+        <span class="absolute -inset-5 rounded-full bg-blue-600/25 blur-3xl group-hover:bg-amber-400/25 transition-colors duration-500"></span>
+        <img src="assets/images/brand/logo.png" alt="ALPHA Logo" class="relative w-64 sm:w-80 lg:w-96 h-auto object-contain mix-blend-lighten logo-pulse transition-transform duration-300 group-hover:scale-105" />
+      </button>
+
+      <p class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-wide text-amber-300/95">
+        Welcome, To the TAE society
+      </p>
+      <span class="font-mono text-sm sm:text-base uppercase tracking-[0.28em] text-zinc-400">
+        The birthplace of Theophonic music
+      </span>
+    </div>
+  </div>
+
+  <!-- Ambient Background & Film Grain -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-gold"></div>
+    <canvas id="audioVisualizer" class="audio-visualizer" aria-hidden="true"></canvas>
+    <div class="film-grain"></div>
+  </div>
+
+  <div id="floatingLyrics" class="floating-lyrics" aria-hidden="true"></div>
+
+  <div id="themeWave" class="theme-wave" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header id="navbar" class="society-reveal fixed top-0 inset-x-0 z-40 transition-all duration-300 border-b border-transparent">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- TAE Monogram Lockup -->
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
+        <svg class="h-10 w-auto transition-transform duration-300 group-hover:scale-105" viewBox="0 0 180 76" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TAE Monogram">
+          <defs>
+            <linearGradient id="navTaeGrad" x1="0" y1="0" x2="180" y2="76" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f8fafc" />
+              <stop offset="55%" stop-color="#cbd5e1" />
+              <stop offset="100%" style="stop-color: var(--brand-blue-pale)" />
+            </linearGradient>
+          </defs>
+          <!-- T -->
+          <polygon points="6,8 68,8 62,21 44,21 44,66 28,66 28,21 12,21" fill="url(#navTaeGrad)" stroke="#fbbf24" stroke-opacity="0.35" stroke-width="0.8" />
+          <!-- A -->
+          <polygon points="74,8 96,8 118,66 101,66 96,52 75,52 70,66 54,66" fill="url(#navTaeGrad)" stroke="#3b82f6" stroke-opacity="0.45" stroke-width="0.8" />
+          <polygon points="85.5,22 79,40 92,40" fill="#060911" />
+          <!-- E -->
+          <polygon points="116,8 172,8 172,21 132,21 132,31 164,31 164,43 132,43 132,53 172,53 172,66 116,66" fill="url(#navTaeGrad)" stroke="#fbbf24" stroke-opacity="0.35" stroke-width="0.8" />
+        </svg>
+        <div class="hidden sm:flex flex-col leading-none">
+          <span class="font-display font-bold tracking-[0.2em] text-xs text-white">THE ALPHA EFFECT</span>
+          <span class="font-mono text-[10px] tracking-widest text-amber-400/90 mt-1">MUSIC THAT MOVES. LYRICS THAT STAY.</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-widest text-zinc-400">
+        <a href="#releases" class="hover:text-amber-300 transition-colors">Releases</a>
+        <a href="#visuals" class="hover:text-amber-300 transition-colors">Visuals</a>
+        <a href="#merch" class="hover:text-amber-300 transition-colors">Merch</a>
+        <a href="#about" class="hover:text-amber-300 transition-colors">About &amp; EPK</a>
+        <a href="#contact" class="hover:text-amber-300 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuBtn" type="button" class="md:hidden p-2 rounded-lg border border-white/10 text-zinc-300 hover:text-white" aria-label="Toggle Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden bg-charcoal/95 backdrop-blur-xl border-b border-amber-400/20 px-6 py-5 space-y-4 font-mono text-xs uppercase tracking-widest text-zinc-300">
+      <a href="#releases" class="block hover:text-amber-300">Releases</a>
+      <a href="#visuals" class="block hover:text-amber-300">Visuals</a>
+      <a href="#merch" class="block hover:text-amber-300">Merch</a>
+      <a href="#about" class="block hover:text-amber-300">About &amp; EPK</a>
+      <a href="#contact" class="block hover:text-amber-300">Contact</a>
+    </div>
+  </header>
+
+  <main id="top" class="relative z-10">
+    <!-- Hero Section -->
+    <section class="society-reveal min-h-screen flex flex-col justify-center pt-28 pb-24 px-5 sm:px-8 max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-7">
+          <div class="inline-flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/30 font-mono text-[11px] uppercase tracking-widest text-blue-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              Sonic Archive &amp; Visual Collective
+            </span>
+            <a href="#about" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/35 font-mono text-[11px] uppercase tracking-widest text-amber-300 transition-colors">
+              By ALPHA
+            </a>
+          </div>
+
+          <button id="themeToggle" type="button" class="theme-toggle" aria-label="Switch to the gold-blue color theme" aria-pressed="false" title="Swap the color theme">
+            <img src="assets/images/brand/logo.png" alt="" />
+          </button>
+
+          <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.03] text-white">
+            <span class="tagline-glow block">Music that moves.</span>
+            <span class="tagline-glow block">Lyrics that stay.</span>
+          </h1>
+
+          <p class="text-zinc-300/90 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Welcome to <strong class="text-white font-semibold">The Alpha Effect</strong>, where music meets art, voices touch hearts, and every lyric reminds us we are never alone.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <button id="heroStreamBtn" type="button" class="btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-amber-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 transition-all cursor-pointer">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Stream Latest Single
+            </button>
+            <a href="#releases" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full tae-card hover:border-amber-400/50 text-zinc-200 font-medium text-sm transition-all">
+              Explore Discography
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Emblem Showcase -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-md aspect-square rounded-3xl tae-card p-8 flex flex-col items-center justify-center text-center shadow-2xl shadow-blue-950/60">
+            <div class="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"></div>
+            <svg class="w-56 sm:w-64 h-auto mb-4 drop-shadow-[0_12px_32px_rgba(37,99,235,0.45)]" viewBox="0 0 260 112" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TAE Crest">
+              <defs>
+                <linearGradient id="heroTaeMetal" x1="10" y1="10" x2="250" y2="105" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="50%" style="stop-color: var(--brand-blue-pale)" />
+                  <stop offset="100%" style="stop-color: var(--brand-gold)" />
+                </linearGradient>
+              </defs>
+              <!-- T -->
+              <polygon points="10,12 96,12 88,30 63,30 63,98 41,98 41,30 18,30" fill="url(#heroTaeMetal)" />
+              <!-- A -->
+              <polygon points="104,12 134,12 164,98 140,98 133,77 105,77 98,98 76,98" fill="url(#heroTaeMetal)" />
+              <polygon points="119,34 110,60 128,60" fill="#060911" />
+              <!-- E -->
+              <polygon points="162,12 248,12 248,30 186,30 186,45 234,45 234,62 186,62 186,78 248,78 248,98 162,98" fill="url(#heroTaeMetal)" />
+            </svg>
+            <p class="font-display font-bold tracking-[0.22em] text-sm text-white uppercase">The Alpha Effect</p>
+            <p class="font-mono text-[11px] tracking-[0.2em] text-amber-300/90 mt-1.5 uppercase">Music That Moves. Lyrics That Stay.</p>
+            <div class="mt-6 pt-5 border-t border-white/10 w-full flex items-center justify-between font-mono text-[11px] text-zinc-400">
+              <span>EST. TAE ARCHIVE</span>
+              <span class="text-blue-400">COBALT &amp; GOLD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Releases / Discography -->
+    <section id="releases" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <div>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Releases</h2>
+        </div>
+        <div id="filterBar" class="flex flex-wrap gap-2 font-mono text-xs"></div>
+      </div>
+
+      <div id="releasesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Visuals / Edits / Artwork -->
+    <section id="visuals" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="mb-12">
+        <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Visuals &amp; Artwork</h2>
+      </div>
+
+      <div id="visualsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Merch -->
+    <section id="merch" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="tae-card scroll-card rounded-2xl p-8 sm:p-12 text-center">
+        <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Merch</h2>
+        <p class="text-zinc-300 max-w-xl mx-auto mt-5 leading-relaxed">
+          TAE merch is on the way. Check back soon for official pieces from The Alpha Effect.
+        </p>
+      </div>
+    </section>
+
+    <!-- About & EPK -->
+    <section id="about" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-6 space-y-6">
+          <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Built by ALPHA.</h2>
+          <p class="text-zinc-300 leading-relaxed">
+            The Alpha Effect blends moody electronic textures, punchy low-end, and deliberate songwriting. Every release is crafted as a complete experience—pairing sound design with stark visual storytelling.
+          </p>
+
+          <!-- ALPHA Founder Card -->
+          <div class="tae-card scroll-card rounded-2xl p-6 flex items-center gap-5">
+            <div class="w-20 h-20 rounded-full bg-obsidian border border-amber-400/40 flex items-center justify-center shrink-0 overflow-hidden">
+              <img src="assets/images/brand/logo.png" alt="ALPHA — Founder" class="w-full h-full object-contain p-1.5" />
+            </div>
+            <div>
+              <p class="font-mono text-xs uppercase tracking-widest text-amber-400">Founder &amp; Artist</p>
+              <h3 class="font-display font-bold text-xl text-white mt-0.5">ALPHA</h3>
+              <p class="text-xs text-zinc-400 mt-1">Production, Vocals, Lyrics &amp; Visual Direction</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- EPK Dossier -->
+        <div class="lg:col-span-6 tae-card scroll-card rounded-2xl p-7 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Electronic Press Kit</span>
+              <h3 class="font-display font-bold text-2xl text-white mt-1">TAE Dossier</h3>
+            </div>
+            <button id="copyBioBtn" type="button" class="px-3.5 py-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/35 border border-blue-400/30 font-mono text-xs text-blue-200 transition-colors cursor-pointer">
+              Copy Bio
+            </button>
+          </div>
+          <p id="epkBioText" class="text-sm text-zinc-300 leading-relaxed">
+            The Alpha Effect (TAE) is the musical project of ALPHA, fusing dark atmospheric soundscapes, resonant basslines, and lyric-driven storytelling under the motto "Music that moves. Lyrics that stay."
+          </p>
+          <dl class="grid grid-cols-2 gap-4 pt-2 font-mono text-xs">
+            <div class="p-3.5 rounded-xl bg-obsidian/80 border border-white/5">
+              <dt class="text-zinc-500 uppercase">Project</dt>
+              <dd class="text-white mt-1">The Alpha Effect (TAE)</dd>
+            </div>
+            <div class="p-3.5 rounded-xl bg-obsidian/80 border border-white/5">
+              <dt class="text-zinc-500 uppercase">Palette</dt>
+              <dd class="text-amber-300 mt-1">Midnight / Cobalt / Gold</dd>
+            </div>
+            <div class="p-3.5 rounded-xl bg-obsidian/80 border border-white/5">
+              <dt class="text-zinc-500 uppercase">Focus</dt>
+              <dd class="text-white mt-1">Singles, EPs &amp; Visuals</dd>
+            </div>
+            <div class="p-3.5 rounded-xl bg-obsidian/80 border border-white/5">
+              <dt class="text-zinc-500 uppercase">Inquiries</dt>
+              <dd class="text-blue-300 mt-1">Bookings &amp; Collabs</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="society-reveal py-24 px-5 sm:px-8 max-w-4xl mx-auto border-t border-white/5">
+      <div class="text-center mb-10">
+        <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Work With TAE</h2>
+        <p class="text-zinc-400 text-sm mt-3">Collaborations, features, visual edits, or licensing inquiries.</p>
+      </div>
+
+      <form id="contactForm" class="tae-card scroll-card rounded-2xl p-6 sm:p-8 space-y-5">
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label for="senderName" class="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">Name</label>
+            <input id="senderName" type="text" required placeholder="Your name or label" class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/10 focus:border-amber-400/60 focus:outline-none text-sm text-white" />
+          </div>
+          <div>
+            <label for="senderEmail" class="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">Email</label>
+            <input id="senderEmail" type="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/10 focus:border-amber-400/60 focus:outline-none text-sm text-white" />
+          </div>
+        </div>
+        <div>
+          <label for="senderMessage" class="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">Message</label>
+          <textarea id="senderMessage" rows="4" required placeholder="Tell ALPHA about your project, track, or inquiry..." class="w-full px-4 py-3 rounded-xl bg-obsidian/90 border border-white/10 focus:border-amber-400/60 focus:outline-none text-sm text-white"></textarea>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <span id="formStatus" class="font-mono text-xs text-amber-300"></span>
+          <button type="submit" class="btn-shimmer px-6 py-3 rounded-full bg-amber-400 hover:bg-amber-300 text-obsidian font-semibold text-sm transition-colors cursor-pointer">
+            Send Inquiry
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="society-reveal relative z-10 border-t border-white/10 bg-charcoal/80 py-10 px-5 sm:px-8 mb-24">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+      <p>&copy; <span id="yearSpan"></span> THE ALPHA EFFECT (TAE). All rights reserved.</p>
+      <p class="text-amber-300/90">Founded &amp; Produced by ALPHA</p>
+    </div>
+  </footer>
+
+  <!-- Persistent Bottom Audio Bar -->
+  <div id="playerBar" class="society-reveal fixed bottom-0 inset-x-0 z-40 bg-charcoal/95 backdrop-blur-xl border-t border-amber-400/25 px-4 sm:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5 min-w-0">
+        <div id="playerArt" class="w-11 h-11 rounded-lg bg-blue-950 border border-blue-400/30 shrink-0 overflow-hidden flex items-center justify-center"></div>
+        <div class="min-w-0">
+          <p id="playerTitle" class="font-display font-bold text-sm text-white truncate">WITHOUT YOU</p>
+          <p id="playerMeta" class="font-mono text-[11px] text-amber-300/90 truncate">ALPHA &bull; SINGLE</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="prevTrackBtn" type="button" class="p-2 rounded-lg text-zinc-300 hover:text-amber-300 cursor-pointer" aria-label="Previous Track">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button id="togglePlayBtn" type="button" class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center cursor-pointer" aria-label="Play or Pause">
+          <svg id="playIcon" class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button id="nextTrackBtn" type="button" class="p-2 rounded-lg text-zinc-300 hover:text-amber-300 cursor-pointer" aria-label="Next Track">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button id="lyricsBtn" type="button" class="lyrics-player-button" aria-label="Open synced lyrics for current track">LYRICS</button>
+        <button id="lyricBubblesToggle" type="button" class="lyrics-player-button lyric-bubbles-toggle" aria-pressed="true" aria-label="Turn lyric bubbles off">BUBBLES ON</button>
+        <div class="player-visualizer" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-3 w-40">
+        <span class="font-mono text-[11px] text-zinc-400">VOL</span>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.02" value="0.5" class="w-full accent-amber-400 cursor-pointer" aria-label="Volume" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Release Detail Modal -->
+  <div id="releaseModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="tae-card rounded-2xl max-w-lg w-full p-6 sm:p-7 space-y-5 relative">
+      <button id="closeModalBtn" type="button" class="absolute top-4 right-4 text-zinc-400 hover:text-white font-mono text-xs cursor-pointer">ESC / CLOSE</button>
+      <div id="modalArt" class="w-full h-44 rounded-xl overflow-hidden border border-white/10"></div>
+      <div>
+        <span id="modalTag" class="font-mono text-xs uppercase tracking-widest text-amber-400"></span>
+        <h3 id="modalTitle" class="font-display font-bold text-2xl text-white mt-1"></h3>
+        <p id="modalNotes" class="text-sm text-zinc-300 mt-2 leading-relaxed"></p>
+      </div>
+      <div id="modalLyricsPanel" class="synced-lyrics-panel bg-obsidian/90 rounded-xl p-4 border border-white/5">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <p class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Synced Lyrics</p>
+          <span id="lyricsStatus" class="font-mono text-[10px] text-zinc-500">Waiting for playback</span>
+        </div>
+        <div id="modalLyrics" class="synced-lyrics-list" aria-live="polite"></div>
+      </div>
+      <div class="flex justify-end gap-3">
+        <button id="modalPlayBtn" type="button" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs uppercase tracking-wider cursor-pointer">
+          Play Track
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modular Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/audio-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
