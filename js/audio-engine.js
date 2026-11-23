@@ -7,7 +7,9 @@ class TaeAudioEngine {
     this.intervalId = null;
     this.step = 0;
     this.isPlaying = false;
+    this.isPaused = false;
     this.volume = 0.5;
+    this.currentTrack = null;
     this.mediaSource = null;
     this.analyser = null;
     this.frequencyData = null;
@@ -15,6 +17,7 @@ class TaeAudioEngine {
     this.audioEl.crossOrigin = 'anonymous';
     this.onStateChange = null;
     this.onError = null;
+    this.onEnded = null;
   }
 
   ensureContext() {
@@ -91,6 +94,8 @@ class TaeAudioEngine {
 
   playTrack(track, startTime = 0) {
     this.stop();
+    this.currentTrack = track;
+    this.isPaused = false;
     this.isPlaying = true;
 
     if (track.audioUrl) {
@@ -110,7 +115,9 @@ class TaeAudioEngine {
       }
       this.audioEl.onended = () => {
         this.isPlaying = false;
+        this.isPaused = false;
         if (this.onStateChange) this.onStateChange(false);
+        if (this.onEnded) this.onEnded();
       };
       this.audioEl.onerror = () => {
         if (this.audioEl.src !== requestedSrc) return;
@@ -137,8 +144,45 @@ class TaeAudioEngine {
     if (this.onStateChange) this.onStateChange(true);
   }
 
+  pause() {
+    if (!this.isPlaying) return;
+    this.isPlaying = false;
+    this.isPaused = true;
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+    this.audioEl.pause();
+    if (this.onStateChange) this.onStateChange(false);
+  }
+
+  resume() {
+    if (!this.isPaused || !this.currentTrack) return;
+    const track = this.currentTrack;
+    this.isPaused = false;
+    this.isPlaying = true;
+
+    if (track.audioUrl) {
+      this.audioEl.play().catch((error) => {
+        if (this.currentTrack !== track || !this.isPlaying) return;
+        this.isPlaying = false;
+        this.isPaused = true;
+        if (this.onStateChange) this.onStateChange(false);
+        if (this.onError) this.onError(error);
+      });
+    } else {
+      const stepMs = Math.max(120, Math.round((60 / (track.bpm || 120)) * 500));
+      this.intervalId = setInterval(() => {
+        this.triggerSynthStep(track.rootFreq || 110);
+      }, stepMs);
+    }
+
+    if (this.onStateChange) this.onStateChange(true);
+  }
+
   stop() {
     this.isPlaying = false;
+    this.isPaused = false;
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;

@@ -82,8 +82,6 @@
     <div class="film-grain"></div>
   </div>
 
-  <div id="floatingLyrics" class="floating-lyrics" aria-hidden="true"></div>
-
   <div id="themeWave" class="theme-wave" aria-hidden="true"></div>
 
   <!-- Navigation -->
@@ -203,10 +201,6 @@
             </svg>
             <p class="font-display font-bold tracking-[0.22em] text-sm text-white uppercase">The Alpha Effect</p>
             <p class="font-mono text-[11px] tracking-[0.2em] text-amber-300/90 mt-1.5 uppercase">Music That Moves. Lyrics That Stay.</p>
-            <div class="mt-6 pt-5 border-t border-white/10 w-full flex items-center justify-between font-mono text-[11px] text-zinc-400">
-              <span>EST. TAE ARCHIVE</span>
-              <span class="text-blue-400">COBALT &amp; GOLD</span>
-            </div>
           </div>
         </div>
       </div>
@@ -230,7 +224,14 @@
         <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Visuals &amp; Artwork</h2>
       </div>
 
-      <div id="visualsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div class="tae-card scroll-card rounded-2xl p-8 sm:p-14 text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-400/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-amber-300">
+          <span class="h-2 w-2 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></span>
+          Work in Progress
+        </span>
+        <p class="mt-6 font-display text-2xl font-bold text-white sm:text-4xl">Visuals are on the way.</p>
+        <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-zinc-400">New artwork and visual stories from The Alpha Effect are in the works. Check back soon.</p>
+      </div>
     </section>
 
     <!-- Merch -->
@@ -342,37 +343,61 @@
   </footer>
 
   <!-- Persistent Bottom Audio Bar -->
-  <div id="playerBar" class="society-reveal fixed bottom-0 inset-x-0 z-40 bg-charcoal/95 backdrop-blur-xl border-t border-amber-400/25 px-4 sm:px-8 py-3.5">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3.5 min-w-0">
-        <div id="playerArt" class="w-11 h-11 rounded-lg bg-blue-950 border border-blue-400/30 shrink-0 overflow-hidden flex items-center justify-center"></div>
-        <div class="min-w-0">
-          <p id="playerTitle" class="font-display font-bold text-sm text-white truncate">WITHOUT YOU</p>
-          <p id="playerMeta" class="font-mono text-[11px] text-amber-300/90 truncate">ALPHA &bull; SINGLE</p>
+  <div id="playerBar" class="society-reveal player-bar fixed bottom-0 inset-x-0 z-40 bg-charcoal/95 backdrop-blur-xl border-t border-amber-400/25">
+    <section id="playerLyricsPanel" class="player-lyrics-panel hidden" aria-label="Current track lyrics">
+      <div class="player-lyrics-heading">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Lyrics</p>
+          <p id="playerLyricsTitle" class="font-display text-lg font-bold text-white"></p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="playerLyricsStatus" class="font-mono text-[10px] text-zinc-500" aria-live="polite"></span>
         </div>
       </div>
+      <div id="playerLyrics" class="lyric-screen player-lyrics-list" aria-live="polite"></div>
+    </section>
+    <div class="player-inner">
+      <div class="player-main-row">
+        <div class="flex items-center gap-3 min-w-0">
+          <div id="playerArt" class="player-art w-11 h-11 rounded-lg bg-blue-950 border border-blue-400/30 shrink-0 overflow-hidden flex items-center justify-center"></div>
+          <div class="min-w-0">
+            <p id="playerTitle" class="font-display font-bold text-sm text-white truncate">WITHOUT YOU</p>
+            <p id="playerMeta" class="font-mono text-[11px] text-amber-300/90 truncate">ALPHA &bull; SINGLE</p>
+          </div>
+        </div>
 
-      <div class="flex items-center gap-3">
-        <button id="prevTrackBtn" type="button" class="p-2 rounded-lg text-zinc-300 hover:text-amber-300 cursor-pointer" aria-label="Previous Track">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </button>
-        <button id="togglePlayBtn" type="button" class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center cursor-pointer" aria-label="Play or Pause">
-          <svg id="playIcon" class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
-        <button id="nextTrackBtn" type="button" class="p-2 rounded-lg text-zinc-300 hover:text-amber-300 cursor-pointer" aria-label="Next Track">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </button>
-        <button id="lyricsBtn" type="button" class="lyrics-player-button" aria-label="Open synced lyrics for current track">LYRICS</button>
-        <button id="lyricBubblesToggle" type="button" class="lyrics-player-button lyric-bubbles-toggle" aria-pressed="true" aria-label="Turn lyric bubbles off">BUBBLES ON</button>
-        <div class="player-visualizer" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <div class="player-transport">
+          <button id="shuffleBtn" type="button" class="player-icon-button" aria-label="Turn shuffle on" aria-pressed="false" title="Shuffle">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3h4v4M3 7h2.5a5 5 0 0 1 4.1 2.1l4.8 6.8a5 5 0 0 0 4.1 2.1H21m-4 3 4-3-4-3M3 17h2.5a5 5 0 0 0 3.2-1.2M14 8.2A5 5 0 0 1 18.5 5H21m-4-3 4 3-4 3"/></svg>
+          </button>
+          <button id="prevTrackBtn" type="button" class="player-icon-button" aria-label="Previous track" title="Previous track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7z"/></svg>
+          </button>
+          <button id="togglePlayBtn" type="button" class="player-play-button" aria-label="Play">
+            <svg id="playIcon" class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button id="nextTrackBtn" type="button" class="player-icon-button" aria-label="Next track" title="Next track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7z"/></svg>
+          </button>
+          <button id="repeatBtn" type="button" class="player-icon-button" aria-label="Repeat off" aria-pressed="false" title="Repeat off">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg>
+            <span id="repeatOneBadge" class="repeat-one-badge hidden">1</span>
+          </button>
+        </div>
+
+        <div class="player-utilities">
+          <button id="lyricsBtn" type="button" class="lyrics-player-button" aria-label="Show lyrics" aria-controls="playerLyricsPanel" aria-expanded="false">LYRICS</button>
+          <div class="player-volume">
+            <span class="font-mono text-[11px] text-zinc-400">VOL</span>
+            <input id="volumeSlider" type="range" min="0" max="1" step="0.02" value="0.5" class="accent-amber-400 cursor-pointer" aria-label="Volume" />
+          </div>
         </div>
       </div>
-
-      <div class="hidden sm:flex items-center gap-3 w-40">
-        <span class="font-mono text-[11px] text-zinc-400">VOL</span>
-        <input id="volumeSlider" type="range" min="0" max="1" step="0.02" value="0.5" class="w-full accent-amber-400 cursor-pointer" aria-label="Volume" />
+      <div class="player-progress-row">
+        <span id="playerCurrentTime" class="player-time">0:00</span>
+        <input id="playerSeekSlider" class="player-seek-slider" type="range" min="0" max="0" step="0.1" value="0" aria-label="Seek through track" disabled />
+        <span id="playerDuration" class="player-time">0:00</span>
       </div>
     </div>
   </div>
@@ -392,7 +417,7 @@
           <p class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Synced Lyrics</p>
           <span id="lyricsStatus" class="font-mono text-[10px] text-zinc-500">Waiting for playback</span>
         </div>
-        <div id="modalLyrics" class="synced-lyrics-list" aria-live="polite"></div>
+        <div id="modalLyrics" class="lyric-screen" aria-live="polite"></div>
       </div>
       <div class="flex justify-end gap-3">
         <button id="modalPlayBtn" type="button" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs uppercase tracking-wider cursor-pointer">

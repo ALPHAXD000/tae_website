@@ -147,30 +147,3 @@ const RELEASES = [
     ]
   }
 ];
-
-const VISUALS = [
-  {
-    id: 'vis-01',
-    title: 'TAE Monogram — Cobalt & Gold',
-    category: 'Brand Identity',
-    caption: 'Sharp geometric emblem framing The Alpha Effect.',
-    imageUrl: '', // Optional: 'assets/images/visuals/tae-monogram.png'
-    badge: 'BRAND'
-  },
-  {
-    id: 'vis-02',
-    title: 'ALPHA Crest — Laurel & Note',
-    category: 'Artist Mark',
-    caption: 'Personal signature mark uniting music and form.',
-    imageUrl: '',
-    badge: 'ALPHA'
-  },
-  {
-    id: 'vis-03',
-    title: 'Lyric Edit Frame — Midnight Run',
-    category: 'Visual Edit',
-    caption: 'High-contrast kinetic typography study for upcoming visual drops.',
-    imageUrl: '',
-    badge: 'VISUAL'
-  }
-];

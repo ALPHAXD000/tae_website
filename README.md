@@ -34,7 +34,8 @@ The player visualizer reads the playing track's frequency spectrum through the W
 The Turn Around cover is center-cropped to a square for consistent release artwork.
 Both releases have timestamped lyrics in `js/data.js`. Each line uses seconds from the start
 of the audio, for example `{ time: 12.5, text: 'Lyric line' }`. Open **LYRICS** in the player
-to follow the current line; selecting a line seeks to its timestamp.
+to see one lyric at a time follow playback. Timestamps are used for synchronization but are
+not shown in the lyric display.
 
 ## How to Add or Replace Tracks & Artwork
 
