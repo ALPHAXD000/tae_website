@@ -1507,6 +1507,53 @@ body.theme-swapped .theme-toggle::after {
   }
 }
 
+/* Mobile viewport: stop unwanted zooming and sideways overflow */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@supports (overflow-x: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* Prevent double-tap zoom when tapping controls quickly (e.g. player buttons) */
+a,
+button,
+label,
+input,
+select,
+textarea,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* iOS Safari zooms in when a focused field has text smaller than 16px */
+@media (max-width: 1023px), (pointer: coarse) {
+  input:not([type="range"]):not([type="radio"]):not([type="checkbox"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* On phones, slide release cards up instead of in from the sides so they never widen the page */
+@media (max-width: 639px) {
+  .song-scroll-reveal:not(.is-revealed):nth-child(odd),
+  .song-scroll-reveal:not(.is-revealed):nth-child(even) {
+    transform: translate3d(0, 48px, 0);
+  }
+}
+
 /* Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .orb,
