@@ -51,13 +51,20 @@
   <!-- TAE Society Intro Gate -->
   <div id="introGate" class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-obsidian px-6 text-center transition-opacity duration-700">
     <div class="intro-bubbles" aria-hidden="true">
-      <span class="intro-bubble intro-bubble-1"></span>
-      <span class="intro-bubble intro-bubble-2"></span>
-      <span class="intro-bubble intro-bubble-3"></span>
-      <span class="intro-bubble intro-bubble-4"></span>
-      <span class="intro-bubble intro-bubble-5"></span>
-      <span class="intro-bubble intro-bubble-6"></span>
-      <span class="intro-bubble intro-bubble-7"></span>
+      <span class="intro-bubble intro-bubble-1"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-2"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-3"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-4"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-5"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-6"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-7"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-8"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-9"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-10"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-11"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-12"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-13"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
+      <span class="intro-bubble intro-bubble-14"><img class="intro-bubble-logo" src="assets/images/brand/logo.png" alt="" /></span>
     </div>
     <div class="relative z-10 w-full max-w-2xl flex flex-col items-center space-y-10 sm:space-y-12">
       <button id="enterSocietyBtn" type="button" aria-label="Enter The Alpha Effect Society" class="group relative flex items-center justify-center rounded-full p-5 sm:p-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 cursor-pointer">
@@ -78,6 +85,13 @@
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <div class="orb orb-blue"></div>
     <div class="orb orb-gold"></div>
+    <div class="song-theme-glow" aria-hidden="true"></div>
+    <div class="background-vinyl" aria-hidden="true">
+      <div class="background-vinyl-record">
+        <img id="backgroundVinylArt" src="assets/images/covers/Without%20You.jpg" alt="" />
+      </div>
+    </div>
+    <div class="background-sparkles" aria-hidden="true"></div>
     <canvas id="audioVisualizer" class="audio-visualizer" aria-hidden="true"></canvas>
     <div class="film-grain"></div>
   </div>
@@ -114,8 +128,10 @@
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-widest text-zinc-400">
         <a href="#releases" class="hover:text-amber-300 transition-colors">Releases</a>
+        <a href="#feedback" class="hover:text-amber-300 transition-colors">Feedback</a>
         <a href="#visuals" class="hover:text-amber-300 transition-colors">Visuals</a>
         <a href="#merch" class="hover:text-amber-300 transition-colors">Merch</a>
+        <a href="#support" class="hover:text-amber-300 transition-colors">Support</a>
         <a href="#about" class="hover:text-amber-300 transition-colors">About &amp; EPK</a>
         <a href="#contact" class="hover:text-amber-300 transition-colors">Contact</a>
       </nav>
@@ -133,8 +149,10 @@
     <!-- Mobile Nav Drawer -->
     <div id="mobileMenu" class="hidden md:hidden bg-charcoal/95 backdrop-blur-xl border-b border-amber-400/20 px-6 py-5 space-y-4 font-mono text-xs uppercase tracking-widest text-zinc-300">
       <a href="#releases" class="block hover:text-amber-300">Releases</a>
+      <a href="#feedback" class="block hover:text-amber-300">Feedback</a>
       <a href="#visuals" class="block hover:text-amber-300">Visuals</a>
       <a href="#merch" class="block hover:text-amber-300">Merch</a>
+      <a href="#support" class="block hover:text-amber-300">Support</a>
       <a href="#about" class="block hover:text-amber-300">About &amp; EPK</a>
       <a href="#contact" class="block hover:text-amber-300">Contact</a>
     </div>
@@ -143,65 +161,38 @@
   <main id="top" class="relative z-10">
     <!-- Hero Section -->
     <section class="society-reveal min-h-screen flex flex-col justify-center pt-28 pb-24 px-5 sm:px-8 max-w-7xl mx-auto">
-      <div class="grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-7 space-y-7">
-          <div class="inline-flex flex-wrap items-center gap-3">
-            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/30 font-mono text-[11px] uppercase tracking-widest text-blue-300">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              Sonic Archive &amp; Visual Collective
-            </span>
-            <a href="#about" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/35 font-mono text-[11px] uppercase tracking-widest text-amber-300 transition-colors">
-              By ALPHA
-            </a>
-          </div>
-
-          <button id="themeToggle" type="button" class="theme-toggle" aria-label="Switch to the gold-blue color theme" aria-pressed="false" title="Swap the color theme">
-            <img src="assets/images/brand/logo.png" alt="" />
-          </button>
-
-          <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.03] text-white">
-            <span class="tagline-glow block">Music that moves.</span>
-            <span class="tagline-glow block">Lyrics that stay.</span>
-          </h1>
-
-          <p class="text-zinc-300/90 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Welcome to <strong class="text-white font-semibold">The Alpha Effect</strong>, where music meets art, voices touch hearts, and every lyric reminds us we are never alone.
-          </p>
-
-          <div class="flex flex-wrap items-center gap-4 pt-2">
-            <button id="heroStreamBtn" type="button" class="btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-amber-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 transition-all cursor-pointer">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              Stream Latest Single
-            </button>
-            <a href="#releases" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full tae-card hover:border-amber-400/50 text-zinc-200 font-medium text-sm transition-all">
-              Explore Discography
-            </a>
-          </div>
+      <div class="w-full max-w-4xl space-y-7">
+        <div class="inline-flex flex-wrap items-center gap-3">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/30 font-mono text-[11px] uppercase tracking-widest text-blue-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            Sonic Archive &amp; Visual Collective
+          </span>
+          <a href="#about" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/35 font-mono text-[11px] uppercase tracking-widest text-amber-300 transition-colors">
+            By ALPHA
+          </a>
         </div>
 
-        <!-- Hero Emblem Showcase -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="relative w-full max-w-md aspect-square rounded-3xl tae-card p-8 flex flex-col items-center justify-center text-center shadow-2xl shadow-blue-950/60">
-            <div class="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"></div>
-            <svg class="w-56 sm:w-64 h-auto mb-4 drop-shadow-[0_12px_32px_rgba(37,99,235,0.45)]" viewBox="0 0 260 112" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TAE Crest">
-              <defs>
-                <linearGradient id="heroTaeMetal" x1="10" y1="10" x2="250" y2="105" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#ffffff" />
-                  <stop offset="50%" style="stop-color: var(--brand-blue-pale)" />
-                  <stop offset="100%" style="stop-color: var(--brand-gold)" />
-                </linearGradient>
-              </defs>
-              <!-- T -->
-              <polygon points="10,12 96,12 88,30 63,30 63,98 41,98 41,30 18,30" fill="url(#heroTaeMetal)" />
-              <!-- A -->
-              <polygon points="104,12 134,12 164,98 140,98 133,77 105,77 98,98 76,98" fill="url(#heroTaeMetal)" />
-              <polygon points="119,34 110,60 128,60" fill="#060911" />
-              <!-- E -->
-              <polygon points="162,12 248,12 248,30 186,30 186,45 234,45 234,62 186,62 186,78 248,78 248,98 162,98" fill="url(#heroTaeMetal)" />
-            </svg>
-            <p class="font-display font-bold tracking-[0.22em] text-sm text-white uppercase">The Alpha Effect</p>
-            <p class="font-mono text-[11px] tracking-[0.2em] text-amber-300/90 mt-1.5 uppercase">Music That Moves. Lyrics That Stay.</p>
-          </div>
+        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Switch to the gold-blue color theme" aria-pressed="false" title="Swap the color theme">
+          <img src="assets/images/brand/logo.png" alt="" />
+        </button>
+
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.03] text-white">
+          <span class="tagline-glow block">Music that moves.</span>
+          <span class="tagline-glow block">Lyrics that stay.</span>
+        </h1>
+
+        <p class="text-zinc-300/90 text-base sm:text-lg max-w-2xl leading-relaxed">
+          Welcome to <strong class="text-white font-semibold">The Alpha Effect</strong>, where music meets art, voices touch hearts, and every lyric reminds us we are never alone.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <button id="heroStreamBtn" type="button" class="btn-shimmer inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-amber-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 transition-all cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Stream Latest Single
+          </button>
+          <a href="#releases" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full tae-card hover:border-amber-400/50 text-zinc-200 font-medium text-sm transition-all">
+            Explore Discography
+          </a>
         </div>
       </div>
     </section>
@@ -216,6 +207,66 @@
       </div>
 
       <div id="releasesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Song Feedback & Comments -->
+    <section id="feedback" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="mb-10">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-400">The listening room</p>
+        <h2 class="mt-2 font-display font-bold text-3xl sm:text-5xl text-white">Comments &amp; Feedback</h2>
+        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">Choose a track, leave a rating, and tell TAE what stayed with you.</p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <form id="feedbackForm" class="tae-card scroll-card rounded-2xl p-6 sm:p-8 space-y-5">
+          <div>
+            <label for="feedbackTrack" class="mb-2 block font-mono text-xs uppercase tracking-wider text-zinc-400">Song</label>
+            <select id="feedbackTrack" required class="w-full rounded-xl border border-white/10 bg-obsidian/90 px-4 py-3 text-sm text-white focus:border-amber-400/60 focus:outline-none"></select>
+          </div>
+
+          <fieldset>
+            <legend class="mb-2 block font-mono text-xs uppercase tracking-wider text-zinc-400">Rating</legend>
+            <div class="feedback-stars" aria-label="Choose a rating from 1 to 5">
+              <input type="radio" id="rating5" name="feedbackRating" value="5" required />
+              <label for="rating5" title="5 stars" aria-label="5 stars">&#9733;</label>
+              <input type="radio" id="rating4" name="feedbackRating" value="4" />
+              <label for="rating4" title="4 stars" aria-label="4 stars">&#9733;</label>
+              <input type="radio" id="rating3" name="feedbackRating" value="3" />
+              <label for="rating3" title="3 stars" aria-label="3 stars">&#9733;</label>
+              <input type="radio" id="rating2" name="feedbackRating" value="2" />
+              <label for="rating2" title="2 stars" aria-label="2 stars">&#9733;</label>
+              <input type="radio" id="rating1" name="feedbackRating" value="1" />
+              <label for="rating1" title="1 star" aria-label="1 star">&#9733;</label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label for="feedbackName" class="mb-2 block font-mono text-xs uppercase tracking-wider text-zinc-400">Name <span class="normal-case text-zinc-600">(optional)</span></label>
+            <input id="feedbackName" type="text" maxlength="40" placeholder="Your name" class="w-full rounded-xl border border-white/10 bg-obsidian/90 px-4 py-3 text-sm text-white focus:border-amber-400/60 focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="feedbackMessage" class="mb-2 block font-mono text-xs uppercase tracking-wider text-zinc-400">Comment</label>
+            <textarea id="feedbackMessage" rows="4" required maxlength="500" placeholder="What did the song make you feel?" class="w-full rounded-xl border border-white/10 bg-obsidian/90 px-4 py-3 text-sm text-white focus:border-amber-400/60 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between gap-4">
+            <span id="feedbackStatus" class="font-mono text-xs text-amber-300" aria-live="polite"></span>
+            <button type="submit" class="btn-shimmer rounded-full bg-amber-400 px-6 py-3 text-sm font-semibold text-obsidian transition-colors hover:bg-amber-300 cursor-pointer">Post Feedback</button>
+          </div>
+        </form>
+
+        <div class="tae-card scroll-card rounded-2xl p-6 sm:p-8">
+          <div class="mb-5 flex items-end justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Community response</p>
+              <h3 id="feedbackListTitle" class="mt-1 font-display text-xl font-bold text-white">All songs</h3>
+            </div>
+            <select id="feedbackFilter" class="max-w-[12rem] rounded-lg border border-white/10 bg-obsidian/90 px-3 py-2 font-mono text-xs text-zinc-300 focus:border-amber-400/60 focus:outline-none" aria-label="Filter comments by song"></select>
+          </div>
+          <div id="feedbackList" class="feedback-list" aria-live="polite"></div>
+        </div>
+      </div>
     </section>
 
     <!-- Visuals / Edits / Artwork -->
@@ -240,6 +291,31 @@
         <h2 class="font-display font-bold text-3xl sm:text-5xl text-white">Merch</h2>
         <p class="text-zinc-300 max-w-xl mx-auto mt-5 leading-relaxed">
           TAE merch is on the way. Check back soon for official pieces from The Alpha Effect.
+        </p>
+      </div>
+    </section>
+
+    <!-- Support TAE -->
+    <section id="support" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <div class="support-panel tae-card scroll-card rounded-2xl p-8 sm:p-12">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-400">Independent music, made with you</p>
+          <h2 class="mt-2 font-display font-bold text-3xl sm:text-5xl text-white">Support TAE</h2>
+          <p class="mt-4 text-sm leading-relaxed text-zinc-300 sm:text-base">
+            If the music means something to you, you can help The Alpha Effect keep creating new releases and visuals. Every contribution is appreciated.
+          </p>
+        </div>
+        <div class="mx-auto mt-8 max-w-xl">
+          <div class="support-option text-center">
+            <h3 class="font-display text-xl font-bold text-white">One-time support</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-400">Make a contribution whenever you like.</p>
+            <a id="supportOneTimeLink" class="support-link" aria-disabled="true" tabindex="-1">
+              Support TAE once <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+        <p id="supportStatus" class="mt-6 text-center font-mono text-xs text-zinc-500" aria-live="polite">
+          Flutterwave checkout is being set up. Thank you for your patience.
         </p>
       </div>
     </section>
@@ -335,72 +411,92 @@
   </main>
 
   <!-- Footer -->
-  <footer class="society-reveal relative z-10 border-t border-white/10 bg-charcoal/80 py-10 px-5 sm:px-8 mb-24">
+  <footer class="society-reveal relative z-10 border-t border-white/10 bg-charcoal/80 py-10 px-5 sm:px-8">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
       <p>&copy; <span id="yearSpan"></span> THE ALPHA EFFECT (TAE). All rights reserved.</p>
       <p class="text-amber-300/90">Founded &amp; Produced by ALPHA</p>
     </div>
   </footer>
 
-  <!-- Persistent Bottom Audio Bar -->
-  <div id="playerBar" class="society-reveal player-bar fixed bottom-0 inset-x-0 z-40 bg-charcoal/95 backdrop-blur-xl border-t border-amber-400/25">
-    <section id="playerLyricsPanel" class="player-lyrics-panel hidden" aria-label="Current track lyrics">
-      <div class="player-lyrics-heading">
-        <div>
-          <p class="font-mono text-[11px] uppercase tracking-widest text-blue-400">Lyrics</p>
-          <p id="playerLyricsTitle" class="font-display text-lg font-bold text-white"></p>
-        </div>
-        <div class="flex items-center gap-3">
-          <span id="playerLyricsStatus" class="font-mono text-[10px] text-zinc-500" aria-live="polite"></span>
+  <!-- Floating Mini Player -->
+  <aside id="playerBar" class="player-bar is-idle" aria-label="Music player">
+    <button id="vinylToggle" type="button" class="player-vinyl-button" aria-label="Open music player" aria-expanded="false">
+      <span class="player-vinyl-record">
+        <img id="vinylArt" src="assets/images/covers/Without%20You.jpg" alt="" />
+      </span>
+      <span class="player-vinyl-equalizer" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+
+    <div class="player-shell" aria-hidden="true">
+      <div class="player-shell-heading">
+        <span class="player-section-label">NOW PLAYING</span>
+        <div class="flex items-center gap-2">
+          <button id="lyricsBtn" type="button" class="lyrics-player-button" aria-label="Show lyrics" aria-controls="playerLyrics" aria-expanded="false">LYRICS</button>
+          <button id="collapsePlayerBtn" type="button" class="player-collapse-button" aria-label="Collapse player">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+          </button>
         </div>
       </div>
-      <div id="playerLyrics" class="lyric-screen player-lyrics-list" aria-live="polite"></div>
-    </section>
-    <div class="player-inner">
-      <div class="player-main-row">
-        <div class="flex items-center gap-3 min-w-0">
-          <div id="playerArt" class="player-art w-11 h-11 rounded-lg bg-blue-950 border border-blue-400/30 shrink-0 overflow-hidden flex items-center justify-center"></div>
-          <div class="min-w-0">
-            <p id="playerTitle" class="font-display font-bold text-sm text-white truncate">WITHOUT YOU</p>
-            <p id="playerMeta" class="font-mono text-[11px] text-amber-300/90 truncate">ALPHA &bull; SINGLE</p>
-          </div>
-        </div>
 
-        <div class="player-transport">
-          <button id="shuffleBtn" type="button" class="player-icon-button" aria-label="Turn shuffle on" aria-pressed="false" title="Shuffle">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3h4v4M3 7h2.5a5 5 0 0 1 4.1 2.1l4.8 6.8a5 5 0 0 0 4.1 2.1H21m-4 3 4-3-4-3M3 17h2.5a5 5 0 0 0 3.2-1.2M14 8.2A5 5 0 0 1 18.5 5H21m-4-3 4 3-4 3"/></svg>
-          </button>
-          <button id="prevTrackBtn" type="button" class="player-icon-button" aria-label="Previous track" title="Previous track">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7z"/></svg>
-          </button>
-          <button id="togglePlayBtn" type="button" class="player-play-button" aria-label="Play">
-            <svg id="playIcon" class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          </button>
-          <button id="nextTrackBtn" type="button" class="player-icon-button" aria-label="Next track" title="Next track">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7z"/></svg>
-          </button>
-          <button id="repeatBtn" type="button" class="player-icon-button" aria-label="Repeat off" aria-pressed="false" title="Repeat off">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg>
-            <span id="repeatOneBadge" class="repeat-one-badge hidden">1</span>
-          </button>
-        </div>
-
-        <div class="player-utilities">
-          <button id="lyricsBtn" type="button" class="lyrics-player-button" aria-label="Show lyrics" aria-controls="playerLyricsPanel" aria-expanded="false">LYRICS</button>
-          <div class="player-volume">
-            <span class="font-mono text-[11px] text-zinc-400">VOL</span>
-            <input id="volumeSlider" type="range" min="0" max="1" step="0.02" value="0.5" class="accent-amber-400 cursor-pointer" aria-label="Volume" />
+      <div id="playerPages" class="player-pages">
+        <section class="player-page player-track-page" aria-label="Playback controls" aria-hidden="false">
+          <div class="player-track-heading">
+            <div id="playerArt" class="player-art"></div>
+            <div class="player-track-info">
+              <p id="playerTitle" class="font-display font-bold text-base text-white truncate">WITHOUT YOU</p>
+              <p id="playerStatus" class="player-status" aria-live="polite">Ready to play</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="player-progress-row">
-        <span id="playerCurrentTime" class="player-time">0:00</span>
-        <input id="playerSeekSlider" class="player-seek-slider" type="range" min="0" max="0" step="0.1" value="0" aria-label="Seek through track" disabled />
-        <span id="playerDuration" class="player-time">0:00</span>
+
+          <div class="player-progress-row">
+            <span id="playerCurrentTime" class="player-time">0:00</span>
+            <input id="playerSeekSlider" class="player-seek-slider" type="range" min="0" max="0" step="0.1" value="0" aria-label="Seek through track" disabled />
+            <span id="playerDuration" class="player-time">0:00</span>
+          </div>
+
+          <div class="player-control-row">
+            <button id="shuffleBtn" type="button" class="player-icon-button" aria-label="Turn shuffle on" aria-pressed="false" title="Shuffle">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3h4v4M3 7h2.5a5 5 0 0 1 4.1 2.1l4.8 6.8a5 5 0 0 0 4.1 2.1H21m-4 3 4-3-4-3M3 17h2.5a5 5 0 0 0 3.2-1.2M14 8.2A5 5 0 0 1 18.5 5H21m-4-3 4 3-4 3"/></svg>
+            </button>
+            <button id="prevTrackBtn" type="button" class="player-icon-button" aria-label="Previous track" title="Previous track">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7z"/></svg>
+            </button>
+            <button id="togglePlayBtn" type="button" class="player-play-button" aria-label="Play">
+              <svg id="playIcon" class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="pauseIcon" class="w-4 h-4 fill-current hidden" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button id="nextTrackBtn" type="button" class="player-icon-button" aria-label="Next track" title="Next track">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7z"/></svg>
+            </button>
+            <button id="repeatBtn" type="button" class="player-icon-button" aria-label="Repeat off" aria-pressed="false" title="Repeat off">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg>
+              <span id="repeatOneBadge" class="repeat-one-badge hidden">1</span>
+            </button>
+          </div>
+          <div id="playerVolumeControl" class="player-volume-control">
+            <button id="volumeToggleBtn" type="button" class="volume-toggle-button" aria-label="Show volume control" aria-controls="volumeSlider" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Zm4 4a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg>
+            </button>
+            <div class="player-volume-popover">
+              <label for="volumeSlider">VOLUME</label>
+              <input id="volumeSlider" type="range" min="0" max="1" step="0.02" value="0.5" class="accent-amber-400 cursor-pointer" aria-label="Volume" />
+            </div>
+          </div>
+        </section>
+
+        <section class="player-page player-lyrics-page" aria-label="Current track lyrics" aria-hidden="true">
+          <div class="player-lyrics-heading">
+            <div class="min-w-0">
+              <p class="player-section-label">LYRICS</p>
+              <p id="playerLyricsTitle" class="font-display text-base font-bold text-white truncate"></p>
+            </div>
+            <span id="playerLyricsStatus" class="font-mono text-[10px] text-zinc-500" aria-live="polite"></span>
+          </div>
+          <div id="playerLyrics" class="lyric-screen player-lyrics-list" aria-live="polite"></div>
+        </section>
       </div>
     </div>
-  </div>
+  </aside>
 
   <!-- Release Detail Modal -->
   <div id="releaseModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">

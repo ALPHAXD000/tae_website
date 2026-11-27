@@ -29,6 +29,11 @@ The release cards are connected to these local audio and cover files:
 |---|---|---|
 | WITHOUT YOU | `assets/audio/WITHOUT_YOU.wav` | `assets/images/covers/Without You.jpg` |
 | Turn Around | `assets/audio/Turn_Around.wav` | `assets/images/covers/Turn Around.jpg` |
+| Forsaken | `assets/audio/Forsaken.wav` | `assets/images/covers/Forsaken.webp` |
+| Temptation | `assets/audio/Temptation.wav` | `assets/images/covers/Temptation.jpg` |
+| Trust | `assets/audio/Trust.wav` | `assets/images/covers/TRUST.jpg` |
+| Birthday | `assets/audio/BIRTHDAY.wav` | `assets/images/covers/Birthday.avif` |
+| Voices | `assets/audio/VOICES.wav` | `assets/images/covers/Voices.avif` |
 
 The player visualizer reads the playing track's frequency spectrum through the Web Audio API.
 The Turn Around cover is center-cropped to a square for consistent release artwork.
@@ -43,3 +48,7 @@ not shown in the lyric display.
 2. Open `js/data.js` and add or edit an item in `RELEASES`, setting its `title`, `audioUrl`, and `coverUrl`.
 3. Use paths relative to `index.html`; encode spaces in paths as `%20` (for example, `assets/images/covers/My%20Cover.jpg`).
 4. Open `index.html` with **Live Server** in VS Code. The browser may not load audio reliably when opening the HTML directly as a `file://` URL.
+
+## Support TAE Payments
+
+The Support TAE section uses a Flutterwave Payment Link for one-time contributions. Checkout is hosted by Flutterwave; the site does not handle payment details. Create a one-time payment link in your Flutterwave dashboard, then paste its public HTTPS URL into `SUPPORT_PAYMENT_LINK` in `js/data.js`. Until the link is configured, the support button remains disabled.

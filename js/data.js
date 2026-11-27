@@ -37,10 +37,10 @@ const RELEASES = [
       { time: 103.4, text: 'Without you,' },
       { time: 112.09, text: 'You make the sun shine bright' },
       { time: 114.18, text: 'You make me feel alright' },
-      { time: 116.26, text: "You know I wont tell lies" },
+      { time: 116.26, text: "You know I won't tell lies" },
       { time: 118.29, text: 'You give me butterflies' },
       { time: 120.43, text: 'You make my heart go rogue' },
-      { time: 123.03, text: 'I feel soo bold' },
+      { time: 123.03, text: 'I feel so bold' },
       { time: 125.09, text: "I feel so happy, I'm the one you chose" },
       { time: 129.46, text: 'Follow me and you see' },
       { time: 131.55, text: 'Our love stronger' },
@@ -95,7 +95,7 @@ const RELEASES = [
       { time: 36.46, text: 'pieces of your heart,' },
       { time: 39.21, text: 'My dear,' },
       { time: 43.71, text: 'One more step ahead,' },
-      { time: 48.72, text: 'Dont let the darkness' },
+      { time: 48.72, text: "Don't let the darkness" },
       { time: 51, text: 'Blind you,' },
       { time: 52.85, text: 'Follow the light,' },
       { time: 56.42, text: 'Take my hand,' },
@@ -111,10 +111,10 @@ const RELEASES = [
       { time: 101.9, text: 'Close your eyes' },
       { time: 104.67, text: 'my dear' },
       { time: 107.01, text: 'And make the jump' },
-      { time: 108.73, text: "cause I'll be standing," },
+      { time: 108.73, text: "'Cause I'll be standing," },
       { time: 111.93, text: 'right here,' },
       { time: 116.01, text: 'Remember, the bond, we share,' },
-      { time: 121.93, text: 'Golden memories, dont forget' },
+      { time: 121.93, text: "Golden memories, don't forget" },
       { time: 131.81, text: 'Through the highs' },
       { time: 133.65, text: 'Through the lows' },
       { time: 136.46, text: 'Take my hand' },
@@ -145,5 +145,62 @@ const RELEASES = [
       { time: 237.71, text: 'It will turn around' },
       { time: 245.54, text: 'Turn Around' }
     ]
+  },
+  {
+    id: 'forsaken',
+    title: 'Forsaken',
+    type: 'Single',
+    year: '2026',
+    audioUrl: 'assets/audio/Forsaken.wav',
+    coverUrl: 'assets/images/covers/Forsaken.webp',
+    accent: '#8b5cf6',
+    notes: 'An original TAE release by ALPHA.',
+    lyrics: []
+  },
+  {
+    id: 'temptation',
+    title: 'Temptation',
+    type: 'Single',
+    year: '2026',
+    audioUrl: 'assets/audio/Temptation.wav',
+    coverUrl: 'assets/images/covers/Temptation.jpg',
+    accent: '#f97316',
+    notes: 'An original TAE release by ALPHA.',
+    lyrics: []
+  },
+  {
+    id: 'trust',
+    title: 'Trust',
+    type: 'Single',
+    year: '2026',
+    audioUrl: 'assets/audio/Trust.wav',
+    coverUrl: 'assets/images/covers/TRUST.jpg',
+    accent: '#3b82f6',
+    notes: 'An original TAE release by ALPHA.',
+    lyrics: []
+  },
+  {
+    id: 'birthday',
+    title: 'Birthday',
+    type: 'Single',
+    year: '2026',
+    audioUrl: 'assets/audio/BIRTHDAY.wav',
+    coverUrl: 'assets/images/covers/Birthday.avif',
+    accent: '#fbbf24',
+    notes: 'An original TAE release by ALPHA.',
+    lyrics: []
+  },
+  {
+    id: 'voices',
+    title: 'Voices',
+    type: 'Single',
+    year: '2026',
+    audioUrl: 'assets/audio/VOICES.wav',
+    coverUrl: 'assets/images/covers/Voices.avif',
+    accent: '#06b6d4',
+    notes: 'An original TAE release by ALPHA.',
+    lyrics: []
   }
 ];
+
+const SUPPORT_PAYMENT_LINK = '';
