@@ -14,6 +14,7 @@ tae-website/
 │   ├── audio-engine.js     # Web Audio synth + real MP3/WAV player
 │   └── app.js              # Rendering, filters, modal & player controls
 └── assets/
+    ├── Lyrics/             # Lyric files and source documents
     ├── audio/              # Put your real audio files here (.mp3, .wav, .ogg)
     └── images/
         ├── brand/          # TAE & ALPHA logos/emblems
@@ -25,22 +26,29 @@ tae-website/
 
 The release cards are connected to these local audio and cover files:
 
-| Track | Audio | Cover |
-|---|---|---|
-| WITHOUT YOU | `assets/audio/WITHOUT_YOU.wav` | `assets/images/covers/Without You.jpg` |
-| Turn Around | `assets/audio/Turn_Around.wav` | `assets/images/covers/Turn Around.jpg` |
-| Forsaken | `assets/audio/Forsaken.wav` | `assets/images/covers/Forsaken.webp` |
-| Temptation | `assets/audio/Temptation.wav` | `assets/images/covers/Temptation.jpg` |
-| Trust | `assets/audio/Trust.wav` | `assets/images/covers/TRUST.jpg` |
-| Birthday | `assets/audio/BIRTHDAY.wav` | `assets/images/covers/Birthday.avif` |
-| Voices | `assets/audio/VOICES.wav` | `assets/images/covers/Voices.avif` |
+| Track | Duration | Audio | Cover | Lyrics |
+|---|---|---|---|---|
+| WITHOUT YOU | 4:39 | `assets/audio/WITHOUT_YOU.wav` | `assets/images/covers/Without You.jpg` | `assets/Lyrics/Without You.txt` |
+| Turn Around | 4:12 | `assets/audio/Turn_Around.wav` | `assets/images/covers/Turn Around.jpg` | `assets/Lyrics/Turn Around.txt` |
+| Forsaken | 2:59 | `assets/audio/Forsaken.wav` | `assets/images/covers/Forsaken-square.jpg` | `assets/Lyrics/Forsaken.txt` |
+| Temptation | 4:03 | `assets/audio/Temptation.wav` | `assets/images/covers/Temptation.jpg` | `assets/Lyrics/Temptation.txt` |
+| Trust | 3:50 | `assets/audio/Trust.wav` | `assets/images/covers/TRUST.jpg` | `assets/Lyrics/Trust.txt` |
+| Birthday | 4:15 | `assets/audio/BIRTHDAY.wav` | `assets/images/covers/Birthday-square.jpg` | `assets/Lyrics/Birthday.txt` |
+| Voices | 3:13 | `assets/audio/VOICES.wav` | `assets/images/covers/Voices.avif` | `assets/Lyrics/Voices.txt` |
+| Evermore | 3:12 | `assets/audio/Evermore.wav` | `assets/images/covers/Evermore.jpg` | `assets/Lyrics/Evermore.txt` |
 
 The player visualizer reads the playing track's frequency spectrum through the Web Audio API.
-The Turn Around cover is center-cropped to a square for consistent release artwork.
-Both releases have timestamped lyrics in `js/data.js`. Each line uses seconds from the start
-of the audio, for example `{ time: 12.5, text: 'Lyric line' }`. Open **LYRICS** in the player
-to see one lyric at a time follow playback. Timestamps are used for synchronization but are
-not shown in the lyric display.
+The Forsaken cover is trimmed to a square while preserving the figure; the Turn Around cover is
+center-cropped to a square for consistent release artwork.
+Lyric files in `assets/Lyrics/` are loaded by the player. Timestamped files use
+`[MM:SS.xx] lyric line` format and follow playback; files without timestamps are shown as full
+lyrics. Turn Around keeps its existing synced lyrics from `js/data.js` because its text file is
+empty.
+When supported by the browser, the player publishes the current track title, artist, and cover
+art through the Media Session API so lock-screen and system media controls can show the song
+instead of the website title. The system play, pause, previous, and next controls are connected
+to the player when the browser supports those actions. Background playback availability depends
+on the browser and operating system.
 
 ## How to Add or Replace Tracks & Artwork
 

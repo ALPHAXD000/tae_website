@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TAE — The Alpha Effect | Music That Moves. Lyrics That Stay.</title>
+  <link rel="icon" type="image/png" href="assets/images/brand/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Righteous&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -47,7 +48,7 @@
   </script>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="bg-obsidian text-zinc-100 font-sans antialiased selection:bg-blue-500/30 selection:text-amber-200 overflow-x-hidden">
+<body class="bg-obsidian text-zinc-100 font-sans antialiased selection:bg-blue-500/30 selection:text-amber-200">
   <!-- TAE Society Intro Gate -->
   <div id="introGate" class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-obsidian px-6 text-center transition-opacity duration-700">
     <div class="intro-bubbles" aria-hidden="true">
@@ -125,29 +126,35 @@
         </div>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-widest text-zinc-400">
-        <a href="#releases" class="hover:text-amber-300 transition-colors">Releases</a>
-        <a href="#feedback" class="hover:text-amber-300 transition-colors">Feedback</a>
-        <a href="#visuals" class="hover:text-amber-300 transition-colors">Visuals</a>
-        <a href="#merch" class="hover:text-amber-300 transition-colors">Merch</a>
-        <a href="#support" class="hover:text-amber-300 transition-colors">Support</a>
-        <a href="#about" class="hover:text-amber-300 transition-colors">About &amp; EPK</a>
-        <a href="#contact" class="hover:text-amber-300 transition-colors">Contact</a>
-      </nav>
-
       <!-- Actions -->
       <div class="flex items-center gap-3">
-        <button id="mobileMenuBtn" type="button" class="md:hidden p-2 rounded-lg border border-white/10 text-zinc-300 hover:text-white" aria-label="Toggle Menu">
+        <button id="mobileMenuBtn" type="button" class="xl:hidden p-2 rounded-lg border border-white/10 text-zinc-300 hover:text-white" aria-label="Toggle Menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
+        <div id="topNavMenu" class="top-nav-dropdown relative">
+          <button id="topNavMenuBtn" type="button" class="inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 font-mono text-xs uppercase tracking-widest text-zinc-300 hover:border-amber-300/50 hover:text-white transition-colors" aria-expanded="false" aria-controls="topNavDropdown">
+            Menu
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <nav id="topNavDropdown" class="hidden absolute right-0 top-full mt-3 w-52 rounded-xl border border-white/10 bg-charcoal/95 p-3 shadow-2xl backdrop-blur-xl font-mono text-xs uppercase tracking-widest text-zinc-300" aria-label="Main menu">
+            <a href="#releases" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Releases</a>
+            <a href="#feedback" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Feedback</a>
+            <a href="#visuals" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Visuals</a>
+            <a href="#merch" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Merch</a>
+            <a href="#support" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Support</a>
+            <a href="#about" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">About &amp; EPK</a>
+            <a href="#contact" class="block rounded-lg px-3 py-2 hover:bg-white/5 hover:text-amber-300 transition-colors">Contact</a>
+          </nav>
+        </div>
       </div>
     </div>
 
     <!-- Mobile Nav Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden bg-charcoal/95 backdrop-blur-xl border-b border-amber-400/20 px-6 py-5 space-y-4 font-mono text-xs uppercase tracking-widest text-zinc-300">
+    <div id="mobileMenu" class="hidden xl:hidden bg-charcoal/95 backdrop-blur-xl border-b border-amber-400/20 px-6 py-5 space-y-4 font-mono text-xs uppercase tracking-widest text-zinc-300">
       <a href="#releases" class="block hover:text-amber-300">Releases</a>
       <a href="#feedback" class="block hover:text-amber-300">Feedback</a>
       <a href="#visuals" class="block hover:text-amber-300">Visuals</a>
@@ -298,6 +305,11 @@
     <!-- Support TAE -->
     <section id="support" class="society-reveal py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
       <div class="support-panel tae-card scroll-card rounded-2xl p-8 sm:p-12">
+        <div class="support-cover-arc" aria-hidden="true">
+          <img class="support-cover support-cover-left" src="assets/images/covers/Without%20You.jpg" alt="" />
+          <img class="support-cover support-cover-center" src="assets/images/covers/TRUST.jpg" alt="" />
+          <img class="support-cover support-cover-right" src="assets/images/covers/Temptation.jpg" alt="" />
+        </div>
         <div class="mx-auto max-w-2xl text-center">
           <p class="font-mono text-xs uppercase tracking-[0.2em] text-amber-400">Independent music, made with you</p>
           <h2 class="mt-2 font-display font-bold text-3xl sm:text-5xl text-white">Support TAE</h2>

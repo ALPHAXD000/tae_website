@@ -15,6 +15,9 @@
     audioVisualizer: document.getElementById('audioVisualizer'),
     backgroundVinylArt: document.getElementById('backgroundVinylArt'),
     navbar: document.getElementById('navbar'),
+    topNavMenu: document.getElementById('topNavMenu'),
+    topNavMenuBtn: document.getElementById('topNavMenuBtn'),
+    topNavDropdown: document.getElementById('topNavDropdown'),
     mobileMenuBtn: document.getElementById('mobileMenuBtn'),
     mobileMenu: document.getElementById('mobileMenu'),
     filterBar: document.getElementById('filterBar'),
@@ -80,6 +83,7 @@
   let lastVisualizerFrameTime = 0;
   let lastLyricsUpdateTime = 0;
   let modalTrackIndex = currentIndex;
+  let playerAutoCollapseTimeout = null;
 
   const scrollObserver = new IntersectionObserver(
     (entries) => {
@@ -112,6 +116,85 @@
 
   function makeCoverMarkup(track) {
     return `<img src="${track.coverUrl}" alt="${track.title} cover art" class="release-cover-image" loading="lazy" />`;
+  }
+
+  function updateMediaSessionMetadata(track) {
+    if (!navigator.mediaSession || typeof window.MediaMetadata !== 'function') return;
+
+    navigator.mediaSession.metadata = new window.MediaMetadata({
+      title: track.title,
+      artist: 'ALPHA',
+      album: 'The Alpha Effect',
+      artwork: [{ src: new URL(track.coverUrl, document.baseURI).href }],
+    });
+  }
+
+  function updateMediaSessionPlaybackState(isPlaying) {
+    if (!navigator.mediaSession) return;
+    navigator.mediaSession.playbackState = isPlaying ? 'playing' : engine.isPaused ? 'paused' : 'none';
+  }
+
+  function setMediaSessionActionHandler(action, handler) {
+    const mediaSession = navigator.mediaSession;
+    if (!mediaSession || typeof mediaSession.setActionHandler !== 'function') return;
+
+    try {
+      mediaSession.setActionHandler(action, handler);
+    } catch (error) {
+      if (error.name !== 'NotSupportedError') throw error;
+    }
+  }
+
+  function parseTimedLyrics(source) {
+    return source.split(/\r?\n/).reduce((lyrics, line) => {
+      const match = line.match(/^\[(\d+):([0-5]\d)(?:\.(\d{1,3}))?\]\s*(.+)$/);
+      if (!match) return lyrics;
+
+      const text = match[4].trim();
+      if (!text) return lyrics;
+
+      const fraction = match[3] ? Number(`0.${match[3]}`) : 0;
+      lyrics.push({
+        time: Number(match[1]) * 60 + Number(match[2]) + fraction,
+        text,
+      });
+      return lyrics;
+    }, []);
+  }
+
+  function parseLyrics(source) {
+    const timedLyrics = parseTimedLyrics(source);
+    if (timedLyrics.length) return timedLyrics;
+
+    return source
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((text) => ({ text }));
+  }
+
+  async function loadTrackLyrics() {
+    await Promise.all(RELEASES.map(async (track) => {
+      if (!track.lyricsUrl) return;
+
+      try {
+        const response = await fetch(track.lyricsUrl);
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const source = await response.text();
+        const lyrics = parseLyrics(source);
+        if (lyrics.length) {
+          track.lyrics = lyrics;
+        }
+      } catch (error) {
+        console.error(`Unable to load lyrics for ${track.title} from ${track.lyricsUrl}:`, error);
+      }
+    }));
+
+    syncPlayerUI(engine.isPlaying);
+    updateSyncedLyrics();
   }
 
   function syncPlayerUI(isPlaying) {
@@ -147,13 +230,14 @@
 
   function renderSyncedLyrics(container, status, track, trackIndex) {
     container.replaceChildren();
+    container.scrollTop = 0;
     container.dataset.trackIndex = String(trackIndex);
     container.dataset.lyricIndex = '-2';
 
     if (!track.lyrics.length) {
       const emptyState = document.createElement('p');
       emptyState.className = 'lyric-screen-empty';
-      emptyState.textContent = 'Timed lyrics will appear here once they are added.';
+      emptyState.textContent = 'Lyrics will appear here once they are added.';
       container.appendChild(emptyState);
       status.textContent = 'Lyrics not added yet';
       return;
@@ -180,6 +264,18 @@
       status.textContent = 'Lyrics not added yet';
       return;
     }
+    if (!Number.isFinite(track.lyrics[0].time)) {
+      if (container.dataset.lyricIndex !== 'full') {
+        container.dataset.lyricIndex = 'full';
+        container.querySelectorAll('.lyric-screen-line').forEach((line) => {
+          line.classList.remove('is-active', 'is-past', 'is-upcoming');
+          line.setAttribute('aria-current', 'false');
+        });
+      }
+      status.textContent = 'Full lyrics';
+      return;
+    }
+
     const isCurrentTrack = trackIndex === currentIndex;
     const currentTime = isCurrentTrack ? engine.getCurrentTime() : -1;
     let activeIndex = -1;
@@ -338,8 +434,38 @@
   function selectAndPlay(index, startTime = 0) {
     currentIndex = (index + RELEASES.length) % RELEASES.length;
     els.playerBar.classList.remove('is-idle');
+    popPlayerOutForSong();
+    updateMediaSessionMetadata(RELEASES[currentIndex]);
     syncPlayerUI(true);
     engine.playTrack(RELEASES[currentIndex], startTime);
+  }
+
+  function setPlayerExpanded(expanded) {
+    els.playerBar.classList.toggle('is-expanded', expanded);
+    els.playerShell.setAttribute('aria-hidden', String(!expanded));
+    els.vinylToggle.setAttribute('aria-expanded', String(expanded));
+    els.vinylToggle.setAttribute('aria-label', `${expanded ? 'Collapse' : 'Open'} player for ${RELEASES[currentIndex].title}`);
+  }
+
+  function collapsePlayer(restoreFocus) {
+    setPlayerExpanded(false);
+    els.playerVolumeControl.classList.remove('is-open');
+    els.volumeToggleBtn.setAttribute('aria-expanded', 'false');
+    els.volumeToggleBtn.setAttribute('aria-label', 'Show volume control');
+    setLyricsPage(false);
+    if (restoreFocus) els.vinylToggle.focus();
+  }
+
+  function popPlayerOutForSong() {
+    if (playerAutoCollapseTimeout !== null) {
+      clearTimeout(playerAutoCollapseTimeout);
+    }
+
+    setPlayerExpanded(true);
+    playerAutoCollapseTimeout = setTimeout(() => {
+      playerAutoCollapseTimeout = null;
+      collapsePlayer(els.playerShell.contains(document.activeElement));
+    }, 6000);
   }
 
   function togglePlayerPlayback() {
@@ -359,6 +485,16 @@
       return;
     }
     selectAndPlay(currentIndex + 1);
+  }
+
+  function playPreviousTrack() {
+    if (engine.getCurrentTime() > 3) {
+      engine.seek(0);
+      updatePlayerProgress();
+      updateSyncedLyrics();
+      return;
+    }
+    selectAndPlay(currentIndex - 1);
   }
 
   function updateShuffleButton() {
@@ -404,7 +540,11 @@
         const realIdx = RELEASES.findIndex((r) => r.id === track.id);
         return `
           <article class="release-row song-scroll-reveal" data-track-id="${track.id}" style="--release-accent: ${track.accent}">
-            <h3 class="font-display font-bold text-lg sm:text-xl text-white truncate">${track.title}</h3>
+            <img class="release-cover-thumb" src="${track.coverUrl}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <div class="release-track-info">
+              <h3 class="font-display font-bold text-lg sm:text-xl text-white truncate">${track.title}</h3>
+              <time class="release-duration" datetime="PT${track.duration}S">${formatPlayerTime(track.duration)}</time>
+            </div>
             <button type="button" data-play-idx="${realIdx}" class="release-play-toggle" aria-label="Play ${track.title}" aria-pressed="false">
               <svg class="release-play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
               <svg class="release-pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
@@ -418,9 +558,8 @@
       btn.addEventListener('click', (event) => {
         event.stopPropagation();
         const index = Number(btn.dataset.playIdx);
-        if (engine.isPlaying && index === currentIndex) {
-          togglePlayerPlayback();
-        } else if (engine.isPaused && index === currentIndex) {
+        if ((engine.isPlaying || engine.isPaused) && index === currentIndex) {
+          popPlayerOutForSong();
           togglePlayerPlayback();
         } else {
           selectAndPlay(index);
@@ -482,6 +621,7 @@
   });
 
   engine.onStateChange = (playing) => {
+    updateMediaSessionPlaybackState(playing);
     syncPlayerUI(playing);
     updateSyncedLyrics();
     if (playing && visualizerFrameId === null) {
@@ -503,26 +643,31 @@
     }
   };
 
+  setMediaSessionActionHandler('play', () => {
+    if (engine.isPaused) {
+      engine.resume();
+    } else if (!engine.isPlaying) {
+      selectAndPlay(currentIndex);
+    }
+  });
+  setMediaSessionActionHandler('pause', () => engine.pause());
+  setMediaSessionActionHandler('previoustrack', playPreviousTrack);
+  setMediaSessionActionHandler('nexttrack', playNextTrack);
+
   els.togglePlayBtn.addEventListener('click', togglePlayerPlayback);
 
   els.heroStreamBtn.addEventListener('click', () => selectAndPlay(0));
   els.vinylToggle.addEventListener('click', () => {
-    const expanded = els.playerBar.classList.toggle('is-expanded');
-    els.playerShell.setAttribute('aria-hidden', String(!expanded));
-    els.vinylToggle.setAttribute('aria-expanded', String(expanded));
-    els.vinylToggle.setAttribute('aria-label', `${expanded ? 'Collapse' : 'Open'} player for ${RELEASES[currentIndex].title}`);
+    const expanded = !els.playerBar.classList.contains('is-expanded');
+    setPlayerExpanded(expanded);
     (expanded ? els.collapsePlayerBtn : els.vinylToggle).focus();
   });
   els.collapsePlayerBtn.addEventListener('click', () => {
-    els.playerBar.classList.remove('is-expanded');
-    els.playerShell.setAttribute('aria-hidden', 'true');
-    els.vinylToggle.setAttribute('aria-expanded', 'false');
-    els.vinylToggle.setAttribute('aria-label', `Open player for ${RELEASES[currentIndex].title}`);
-    els.playerVolumeControl.classList.remove('is-open');
-    els.volumeToggleBtn.setAttribute('aria-expanded', 'false');
-    els.volumeToggleBtn.setAttribute('aria-label', 'Show volume control');
-    setLyricsPage(false);
-    els.vinylToggle.focus();
+    if (playerAutoCollapseTimeout !== null) {
+      clearTimeout(playerAutoCollapseTimeout);
+      playerAutoCollapseTimeout = null;
+    }
+    collapsePlayer(true);
   });
   els.volumeToggleBtn.addEventListener('click', () => {
     const showVolume = els.playerVolumeControl.classList.toggle('is-open');
@@ -548,15 +693,7 @@
     if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
     setLyricsPage(deltaX < 0);
   }, { passive: true });
-  els.prevTrackBtn.addEventListener('click', () => {
-    if (engine.getCurrentTime() > 3) {
-      engine.seek(0);
-      updatePlayerProgress();
-      updateSyncedLyrics();
-      return;
-    }
-    selectAndPlay(currentIndex - 1);
-  });
+  els.prevTrackBtn.addEventListener('click', playPreviousTrack);
   els.nextTrackBtn.addEventListener('click', playNextTrack);
   els.shuffleBtn.addEventListener('click', () => {
     shuffleEnabled = !shuffleEnabled;
@@ -585,7 +722,31 @@
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') {
+      closeModal();
+      els.topNavDropdown.classList.add('hidden');
+      els.topNavMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  els.topNavMenuBtn.addEventListener('click', () => {
+    const isExpanded = els.topNavMenuBtn.getAttribute('aria-expanded') === 'true';
+    els.topNavMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
+    els.topNavDropdown.classList.toggle('hidden', isExpanded);
+  });
+
+  els.topNavDropdown.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      els.topNavDropdown.classList.add('hidden');
+      els.topNavMenuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!els.topNavMenu.contains(event.target)) {
+      els.topNavDropdown.classList.add('hidden');
+      els.topNavMenuBtn.setAttribute('aria-expanded', 'false');
+    }
   });
 
   els.mobileMenuBtn.addEventListener('click', () => {
@@ -773,7 +934,6 @@
     const isScrolled = window.scrollY > 24;
     if (isScrolled === navbarIsScrolled) return;
     navbarIsScrolled = isScrolled;
-
     if (isScrolled) {
       els.navbar.classList.add('bg-obsidian/90', 'backdrop-blur-xl', 'border-white/10');
     } else {
@@ -794,4 +954,5 @@
   renderFilters();
   renderReleases();
   registerScrollReveals();
+  loadTrackLyrics();
 })();

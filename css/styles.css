@@ -173,6 +173,59 @@ body.theme-swapped .bg-surface {
   letter-spacing: 0.08em;
 }
 
+.support-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--track-accent) 12%, transparent), transparent 58%),
+    linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(11, 17, 32, 0.96));
+}
+
+.support-panel > :not(.support-cover-arc) {
+  position: relative;
+  z-index: 1;
+}
+
+.support-cover-arc {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.support-cover {
+  position: absolute;
+  width: clamp(9rem, 17vw, 13rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  object-fit: cover;
+  opacity: 0.3;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.support-cover-left {
+  top: 22%;
+  left: 31%;
+  z-index: 1;
+  transform: rotate(-14deg);
+}
+
+.support-cover-center {
+  top: 9%;
+  left: 43%;
+  z-index: 2;
+}
+
+.support-cover-right {
+  top: 22%;
+  left: 55%;
+  z-index: 1;
+  transform: rotate(14deg);
+}
+
 .feedback-meta {
   margin-top: 0.75rem;
 }
@@ -203,6 +256,32 @@ body.theme-swapped .bg-surface {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--release-accent) 68%, white 8%);
   box-shadow: 0 14px 36px -22px color-mix(in srgb, var(--release-accent) 60%, transparent);
+}
+
+.release-cover-thumb {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.55rem;
+  object-fit: cover;
+}
+
+.release-track-info {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.release-duration {
+  flex: 0 0 auto;
+  color: #a1a1aa;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .release-play-toggle {
@@ -966,12 +1045,6 @@ body.theme-swapped .bg-surface {
   transition: background 900ms ease;
 }
 
-.support-panel {
-  background:
-    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--track-accent) 12%, transparent), transparent 58%),
-    linear-gradient(145deg, rgba(17, 24, 39, 0.9), rgba(11, 17, 32, 0.96));
-}
-
 .support-option {
   padding: 1.5rem;
   border: 1px solid color-mix(in srgb, var(--brand-gold) 18%, transparent);
@@ -1493,6 +1566,27 @@ body.theme-swapped .theme-toggle::after {
   }
 }
 
+@media (max-width: 767px) {
+  .support-cover {
+    width: clamp(5.5rem, 21vw, 8rem);
+  }
+
+  .support-cover-left {
+    top: 22%;
+    left: 27%;
+  }
+
+  .support-cover-center {
+    top: 10%;
+    left: 43%;
+  }
+
+  .support-cover-right {
+    top: 22%;
+    left: 59%;
+  }
+}
+
 @media (max-width: 360px) {
   .player-shell {
     padding: 0.75rem;
@@ -1587,5 +1681,15 @@ textarea,
   .btn-shimmer::after,
   #introGate {
     transition-duration: 0.01ms !important;
+  }
+}
+
+.top-nav-dropdown {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .top-nav-dropdown {
+    display: block;
   }
 }
