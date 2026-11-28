@@ -231,3 +231,4 @@ const RELEASES = [
 ];
 
 const SUPPORT_PAYMENT_LINK = '';
+const INQUIRY_FORM_ENDPOINT = 'https://formspree.io/f/mzerqdgo';

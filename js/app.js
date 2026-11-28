@@ -9,7 +9,6 @@
 
   const els = {
     introGate: document.getElementById('introGate'),
-    enterSocietyBtn: document.getElementById('enterSocietyBtn'),
     themeToggle: document.getElementById('themeToggle'),
     themeWave: document.getElementById('themeWave'),
     audioVisualizer: document.getElementById('audioVisualizer'),
@@ -20,6 +19,8 @@
     topNavDropdown: document.getElementById('topNavDropdown'),
     mobileMenuBtn: document.getElementById('mobileMenuBtn'),
     mobileMenu: document.getElementById('mobileMenu'),
+    mobileMenuOpenIcon: document.getElementById('mobileMenuOpenIcon'),
+    mobileMenuCloseIcon: document.getElementById('mobileMenuCloseIcon'),
     filterBar: document.getElementById('filterBar'),
     releasesGrid: document.getElementById('releasesGrid'),
     playerBar: document.getElementById('playerBar'),
@@ -593,12 +594,7 @@
     els.releaseModal.classList.remove('flex');
   }
 
-  if (els.enterSocietyBtn) {
-    els.enterSocietyBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      revealSocietyStepByStep();
-    });
-  }
+  setTimeout(revealSocietyStepByStep, 2000);
 
   els.themeToggle.addEventListener('click', () => {
     const isSwapped = document.body.classList.toggle('theme-swapped');
@@ -726,6 +722,7 @@
       closeModal();
       els.topNavDropdown.classList.add('hidden');
       els.topNavMenuBtn.setAttribute('aria-expanded', 'false');
+      setMobileMenuOpen(false);
     }
   });
 
@@ -749,8 +746,27 @@
     }
   });
 
+  function setMobileMenuOpen(isOpen) {
+    els.mobileMenu.classList.toggle('hidden', !isOpen);
+    els.mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    els.mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    els.mobileMenuOpenIcon.classList.toggle('hidden', isOpen);
+    els.mobileMenuCloseIcon.classList.toggle('hidden', !isOpen);
+  }
+
   els.mobileMenuBtn.addEventListener('click', () => {
-    els.mobileMenu.classList.toggle('hidden');
+    const isExpanded = els.mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+    setMobileMenuOpen(!isExpanded);
+  });
+
+  els.mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMobileMenuOpen(false));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!els.mobileMenu.contains(event.target) && !els.mobileMenuBtn.contains(event.target)) {
+      setMobileMenuOpen(false);
+    }
   });
 
   els.copyBioBtn.addEventListener('click', () => {
@@ -923,10 +939,39 @@
     });
   }
 
-  els.contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    els.formStatus.textContent = 'Inquiry drafted. Connect a form endpoint (Formspree/EmailJS) to send live.';
-    els.contactForm.reset();
+  els.contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!INQUIRY_FORM_ENDPOINT) {
+      els.formStatus.textContent = 'The inquiry form is not connected yet. Please try again soon.';
+      return;
+    }
+
+    const submitButton = els.contactForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    els.formStatus.textContent = '';
+
+    try {
+      const response = await fetch(INQUIRY_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(els.contactForm)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Inquiry endpoint returned HTTP ${response.status}.`);
+      }
+
+      els.formStatus.textContent = 'Inquiry sent. Thank you for reaching out.';
+      els.contactForm.reset();
+    } catch (error) {
+      console.error('Failed to send inquiry.', error);
+      els.formStatus.textContent = 'Unable to send your inquiry right now. Please try again later.';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send Inquiry';
+    }
   });
 
   let navbarIsScrolled = false;

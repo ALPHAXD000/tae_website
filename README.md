@@ -60,3 +60,10 @@ on the browser and operating system.
 ## Support TAE Payments
 
 The Support TAE section uses a Flutterwave Payment Link for one-time contributions. Checkout is hosted by Flutterwave; the site does not handle payment details. Create a one-time payment link in your Flutterwave dashboard, then paste its public HTTPS URL into `SUPPORT_PAYMENT_LINK` in `js/data.js`. Until the link is configured, the support button remains disabled.
+
+## Inquiry Form Delivery
+
+The contact form submits to Formspree using the URL configured in `INQUIRY_FORM_ENDPOINT` in
+`js/data.js`. In Formspree, set and verify the inbox that should receive submissions. If you replace
+the Formspree form, update the endpoint URL there. If the endpoint is left blank, the contact form
+displays a setup message and does not claim that submissions were sent.
